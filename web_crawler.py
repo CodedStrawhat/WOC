@@ -1,9 +1,18 @@
 from bs4 import * # To find the hyperlinks
 import requests # To make http requests to a site
+from argparse import *
 
-url=input("Enter your url:")
+#url=input("Enter your url:")
+#d=int(input("Enter depth:"))
 
-def usearch(u):
+parser=ArgumentParser()
+parser.add_argument("url",help="Enter the URL you want to scrape")
+parser.add_argument("depth",help="Enter the depth for search")
+p=parser.parse_args()
+
+def usearch(u,depth):
+    if depth==int(p.depth):
+        return 0
     r=requests.get(u)
     soup=BeautifulSoup(r.content,'html.parser')
     links= soup.find_all('a')
@@ -17,8 +26,9 @@ def usearch(u):
             print(u+link)
         else:
             print(link)
-            usearch(link)
-usearch(url)
+            usearch(link,depth+1)
+            
+usearch(p.url,0)
                 
     
     
