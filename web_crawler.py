@@ -1,14 +1,17 @@
 from bs4 import * # To find the hyperlinks
 import requests # To make http requests to a site
-from argparse import *
+from argparse import * #To make a CLI
 
-#url=input("Enter your url:")
-#d=int(input("Enter depth:"))
+
 
 parser=ArgumentParser()
 parser.add_argument("url",help="Enter the URL you want to scrape")
 parser.add_argument("depth",help="Enter the depth for search")
 p=parser.parse_args()
+
+'''The usearch function searches the html source code for
+links and recursively searches further for links based on
+given depth'''
 
 def usearch(u,depth):
     if depth==int(p.depth):
