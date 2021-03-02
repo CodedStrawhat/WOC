@@ -2,8 +2,9 @@ from bs4 import * # To find the hyperlinks
 import requests # To make http requests to a site
 from argparse import * #To make a CLI
 import os 
-import subprocess
 import re
+import mail
+from urllib.parse import urlparse 
 
 parser=ArgumentParser()
 parser.add_argument("url",help="Enter the URL you want to scrape")
@@ -14,7 +15,9 @@ p=parser.parse_args()
 links and recursively searches further for links based on
 given depth'''
 l=[]
+
 def usearch(u,depth):
+    mail.harv(title,u)
     if depth==int(p.depth):
         return 0
     r=requests.get(u)
@@ -37,13 +40,15 @@ def usearch(u,depth):
             f.write(link+"\n")
             usearch(link,depth+1)
 
-title=re.split("www.",p.url)
-title=title[1]
+
+title=urlparse(p.url)
+title=title.netloc
 os.system("mkdir {}".format(title)) 
 os.system("touch {}/domains.txt".format(title))
 f= open("{}/domains.txt".format(title),"a")
 
 usearch(p.url,0)
+
 f.close()              
-    
+
     
