@@ -20,14 +20,13 @@ given depth'''
 
 mails=set()
 contacts=set()
-n_w_c=set()
-n_w_m=set()
+
 l=[]
 def usearch(u,depth):
     if p.e:
-        mail.harv(u,fil_1,mails,n_w_m)
+        mail.harv(u,fil_1,mails,set())
     if p.c:
-        contact.harv(u,fil_2,contacts,n_w_c)
+        contact.harv(u,fil_2,contacts,set())
     if depth==int(p.depth):
         return 0
     r=requests.get(u)
